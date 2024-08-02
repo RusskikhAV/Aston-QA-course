@@ -234,6 +234,7 @@ public class AssignmentForTheSecondLecture {
             arr[i] = initialValue;
         }
         return arr;
+
         /*
         Вывод консоли
         [7, 7, 7, 7, 7]
