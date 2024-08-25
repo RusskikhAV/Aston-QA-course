@@ -31,15 +31,15 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public final void getInfo() {
-        perimeter();
-        area();
+    public void getInfo() {
         if (a <= 0 || b <= 0 || c <= 0) {
             System.out.println("""
                     У Треугольника не может быть стороны равной или меньше: 0
                     ____________________________________________________
                     """);
         } else {
+            this.perimeter();
+            this.area();
             System.out.printf("""
                             Площадь Треугольника со сторонами a:%,.1f, b:%,.1f, c:%,.1f равна: %,.4f
                             Периметр равен: %,.3f

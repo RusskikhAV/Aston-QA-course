@@ -29,14 +29,14 @@ public class Rectangle implements Figure {
 
     @Override
     public final void getInfo() {
-        perimeter();
-        area();
         if (a <= 0 || b <= 0) {
             System.out.println("""
                     У Прямоугольника не может быть стороны равной или меньше: 0
                     ____________________________________________________
                     """);
         } else {
+            this.perimeter();
+            this.area();
             System.out.printf("""
                             Площадь Прямоугольника со сторнами a:%,.1f, b:%,.1f равна: %,.4f
                             Периметр равен: %,.3f

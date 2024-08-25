@@ -26,14 +26,14 @@ public class Circle implements Figure {
     }
 
     public final void getInfo() {
-        perimeter();
-        area();
         if (radius <= 0) {
             System.out.println("""
                     У Круга не может быть радиус равен или меньше: 0
                     ____________________________________________________
                     """);
         } else {
+            this.perimeter();
+            this.area();
             System.out.printf("""
                             Площадь круга с радиусом %,.1f равна: %,.4f
                             Периметр равен: %,.3f
