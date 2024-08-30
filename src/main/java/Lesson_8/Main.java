@@ -12,7 +12,7 @@ public class Main {
             }
         }
 
-        ChangeStringToNumber changer = new ChangeStringToNumber();
+        ChangeArrayElements changer = new ChangeArrayElements(4, 4);
         System.out.println(changer.changeArrayElementTypeFromStringToIntAndSumTheir(strArr));
 
     }
