@@ -9,13 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CookieAcceptSupport {
-    WebDriver driver;
-
-    public CookieAcceptSupport(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void acceptCookie() {
+       public void acceptCookie(WebDriver driver) {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(2))
                     .until(ExpectedConditions.elementToBeClickable(By.id("cookie-agree"))).click();

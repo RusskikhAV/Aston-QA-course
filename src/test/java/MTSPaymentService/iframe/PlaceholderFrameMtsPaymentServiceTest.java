@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 public class PlaceholderFrameMtsPaymentServiceTest extends BaseTest {
-    FillFieldsMtsPaymentService fillFieldsMtsPaymentService = new FillFieldsMtsPaymentService(driver);
+    FillFieldsMtsPaymentService fillFieldsMtsPaymentService = new FillFieldsMtsPaymentService();
 
     @Test
     @DisplayName("Проверка плейсхолдера поля - Номер карты")
     public void placeholderCardNumber() {
-        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame();
+        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame(driver);
         placeholderFieldsChecker("creditCard", "Номер карты");
 
     }
@@ -20,21 +20,21 @@ public class PlaceholderFrameMtsPaymentServiceTest extends BaseTest {
     @Test
     @DisplayName("Проверка плейсхолдера поля - Срок действия")
     public void placeholderExpirationDate() {
-        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame();
+        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame(driver);
         placeholderFieldsChecker("expirationDate", "Срок действия");
     }
 
     @Test
     @DisplayName("Проверка плейсхолдера поля - CVC")
     public void placeholderCVC() {
-        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame();
+        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame(driver);
         placeholderFieldsChecker("cvc", "CVC");
     }
 
     @Test
     @DisplayName("Проверка плейсхолдера поля - Имя держателя (как на карте)")
     public void placeholderCCName() {
-        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame();
+        fillFieldsMtsPaymentService.fillAllFieldAndSwitchFrame(driver);
         placeholderFieldsChecker("holder", "Имя держателя (как на карте)");
     }
 

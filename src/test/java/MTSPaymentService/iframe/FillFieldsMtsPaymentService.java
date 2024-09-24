@@ -7,13 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class FillFieldsMtsPaymentService {
-    WebDriver driver;
-
-    public FillFieldsMtsPaymentService(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void fillAllFieldAndSwitchFrame() {
+       public void fillAllFieldAndSwitchFrame(WebDriver driver) {
         String telephoneNumber = "297777777";
         String sum = "101";
         String email = "google@google.com";
@@ -22,7 +16,7 @@ public class FillFieldsMtsPaymentService {
         String xPathConnectionEmail = "//input[@id='connection-email']";
         String xPathButton = "//form[@id='pay-connection']/button";
 
-        new CookieAcceptSupport(driver).acceptCookie();
+        new CookieAcceptSupport().acceptCookie(driver);
 
         WebElement elementConnectionTelephone = driver.findElement(By.xpath(xPathConnectionTelephone));
         elementConnectionTelephone.sendKeys(telephoneNumber);
