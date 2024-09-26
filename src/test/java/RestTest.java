@@ -10,6 +10,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RestTest {
     private final String BASE_URI = "https://postman-echo.com";
+    private final String EQUAL_STR = "This is expected to be sent back as part of response body.";
+    private final String RESPONSE_STR = EQUAL_STR.replace(" ", "%20");
 
     @Test
     @DisplayName("Get-Method Postman-echo")
@@ -46,8 +48,7 @@ public class RestTest {
     @Test
     @DisplayName("Put-Method Postman-echo")
     public void putMethodTest() {
-        String EQUAL_STR = "This is expected to be sent back as part of response body.";
-        String RESPONSE_STR = EQUAL_STR.replace(" ", "%20");
+
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
@@ -63,8 +64,6 @@ public class RestTest {
     @Test
     @DisplayName("Patch-Method Postman-echo")
     public void patchMethodTest() {
-        String EQUAL_STR = "This is expected to be sent back as part of response body.";
-        String RESPONSE_STR = EQUAL_STR.replace(" ", "%20");
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
@@ -80,8 +79,6 @@ public class RestTest {
     @Test
     @DisplayName("Delete-Method Postman-echo")
     public void deleteMethodTest() {
-        String EQUAL_STR = "This is expected to be sent back as part of response body.";
-        String RESPONSE_STR = EQUAL_STR.replace(" ", "%20");
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
