@@ -11,7 +11,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class RestTest {
     private final String BASE_URI = "https://postman-echo.com";
     private final String EQUAL_STR = "This is expected to be sent back as part of response body.";
-    private final String RESPONSE_STR = EQUAL_STR.replace(" ", "%20");
 
     @Test
     @DisplayName("Get-Method Postman-echo")
@@ -28,8 +27,24 @@ public class RestTest {
     }
 
     @Test
-    @DisplayName("Post-Method Postman-echo")
-    public void postMethodTest() {
+    @DisplayName("Post-Method Raw Text Postman-echo")
+    public void postMethodTestRawText() {
+        String text = "{\n    \"test\": \"value\"\n}";
+        given()
+                .baseUri(BASE_URI)
+                .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
+                .body(text)
+                .when()
+                .post("/post")
+                .then().log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .assertThat()
+                .body("data", equalTo(text));
+    }
+
+    @Test
+    @DisplayName("Post-Method From Data Postman-echo")
+    public void postMethodTestFromData() {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.URLENC.withCharset(StandardCharsets.UTF_8))
@@ -44,21 +59,19 @@ public class RestTest {
                 .and()
                 .body("form.foo2", equalTo("bar2"));
     }
-
     @Test
     @DisplayName("Put-Method Postman-echo")
     public void putMethodTest() {
-
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .formParam(EQUAL_STR)
+                .body(EQUAL_STR)
                 .when()
                 .put("/put")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(RESPONSE_STR));
+                .body("data", equalTo(EQUAL_STR));
     }
 
     @Test
@@ -67,13 +80,13 @@ public class RestTest {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .formParam(EQUAL_STR)
+                .body(EQUAL_STR)
                 .when()
                 .patch("/patch")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(RESPONSE_STR));
+                .body("data", equalTo(EQUAL_STR));
     }
 
     @Test
@@ -82,13 +95,12 @@ public class RestTest {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .formParam(EQUAL_STR)
+                .body(EQUAL_STR)
                 .when()
                 .delete("/delete")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(RESPONSE_STR));
+                .body("data", equalTo(EQUAL_STR));
     }
 }
-

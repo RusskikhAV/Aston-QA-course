@@ -12,8 +12,8 @@
         <junit.jupiter.version>5.11.0</junit.jupiter.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <selenium.version>4.25.0</selenium.version>
         <rest.ashured.version>5.5.0</rest.ashured.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
