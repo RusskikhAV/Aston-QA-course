@@ -1,3 +1,4 @@
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RestTest {
     private final String BASE_URI = "https://postman-echo.com";
-    private final String EQUAL_STR = "This is expected to be sent back as part of response body.";
+    private final String BODY_TEXT = "This is expected to be sent back as part of response body.";
 
     @Test
     @DisplayName("Get-Method Postman-echo")
@@ -43,7 +44,7 @@ public class RestTest {
     }
 
     @Test
-    @DisplayName("Post-Method From Data Postman-echo")
+    @DisplayName("Post-Method Form Data Postman-echo")
     public void postMethodTestFromData() {
         given()
                 .baseUri(BASE_URI)
@@ -59,19 +60,20 @@ public class RestTest {
                 .and()
                 .body("form.foo2", equalTo("bar2"));
     }
+
     @Test
     @DisplayName("Put-Method Postman-echo")
     public void putMethodTest() {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .body(EQUAL_STR)
+                .body(BODY_TEXT)
                 .when()
                 .put("/put")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(EQUAL_STR));
+                .body("data", equalTo(BODY_TEXT));
     }
 
     @Test
@@ -80,13 +82,13 @@ public class RestTest {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .body(EQUAL_STR)
+                .body(BODY_TEXT)
                 .when()
                 .patch("/patch")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(EQUAL_STR));
+                .body("data", equalTo(BODY_TEXT));
     }
 
     @Test
@@ -95,12 +97,12 @@ public class RestTest {
         given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .body(EQUAL_STR)
+                .body(BODY_TEXT)
                 .when()
                 .delete("/delete")
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body("data", equalTo(EQUAL_STR));
+                .body("data", equalTo(BODY_TEXT));
     }
 }
