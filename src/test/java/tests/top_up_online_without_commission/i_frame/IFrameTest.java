@@ -27,7 +27,7 @@ public class IFrameTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("paramsForCheckSumByPayDescriptionTest")
-    @DisplayName("Проверка суммы в заголовке фрейма")
+    @DisplayName("Корректность отображения реквизитов карты")
     public void checkSumByPayDescription(String field, String expected) {
         mtsHomeCardPaymentSystemPage
                 .placeholderFieldsChecker(field, expected);
@@ -35,10 +35,17 @@ public class IFrameTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("paramsForCheckLogoByPayDescriptionTest")
-    @DisplayName("Проверка логотипов в фрейме")
+    @DisplayName("Проверка наличия иконок систем")
     public void checkLogoByPayDescription(String paymentSystem) {
         mtsHomeCardPaymentSystemPage
                 .checkSrcByIcon(paymentSystem);
+    }
+
+    @Test
+    @DisplayName("Проверка правильного отображения сумм и номера телефона в описанни платежа")
+    public void checkingSumAndTelephoneNumberByPayDescriptionTest() {
+        mtsHomeCardPaymentSystemPage
+                .checkSumByPayDescriptionCost();
     }
 
     private static Stream<Arguments> paramsForCheckSumByPayDescriptionTest() {
@@ -60,16 +67,5 @@ public class IFrameTest extends BaseTest {
         );
     }
 
-    @Test
-    @DisplayName("Проверка правильного отображения суммы и номера телефона в описанни платежа")
-    public void checkingSumAndTelephoneNumberByPayDescriptionTest() {
-        mtsHomePage
-                .acceptCookie()
-                .fillFieldsMtsPaymentsService()
-                .clickContinueBtn()
-                .switchFrame();
 
-        mtsHomeCardPaymentSystemPage
-                .checkSumByPayDescriptionCost();
-    }
 }
