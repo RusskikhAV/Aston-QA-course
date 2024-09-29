@@ -4,19 +4,22 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class RestTest {
+
     @BeforeAll
     public static void beforeAll() {
         RestAssured.baseURI = "https://postman-echo.com";
     }
-
-    private final String BODY_TEXT = "This is expected to be sent back as part of response body.";
 
     @Test
     @DisplayName("Get-Method Postman-echo")
@@ -65,45 +68,28 @@ public class RestTest {
                 .body("form.foo2", equalTo("bar2"));
     }
 
-    @Test
-    @DisplayName("Put-Method Postman-echo")
-    public void putMethodTest() {
-        given()
-                .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .body(BODY_TEXT)
-                .when()
-                .put("/put")
-                .then().log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .assertThat()
-                .body("data", equalTo(BODY_TEXT));
-    }
-
-    @Test
-    @DisplayName("Patch-Method Postman-echo")
-    public void patchMethodTest() {
-        given()
-                .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
-                .body(BODY_TEXT)
-                .when()
-                .patch("/patch")
-                .then().log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .assertThat()
-                .body("data", equalTo(BODY_TEXT));
-    }
-
-    @Test
+    @ParameterizedTest
+    @MethodSource("paramForRequestMethod")
     @DisplayName("Delete-Method Postman-echo")
-    public void deleteMethodTest() {
+    public void requestMethodTest(String method, String endpoint) {
+        String BODY_TEXT = "This is expected to be sent back as part of response body.";
+        
         given()
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(BODY_TEXT)
                 .when()
-                .delete("/delete")
+                .request(method, endpoint)
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
                 .body("data", equalTo(BODY_TEXT));
+    }
+
+    private static Stream<Arguments> paramForRequestMethod() {
+        return Stream.of(
+                Arguments.of("PUT", "/put"),
+                Arguments.of("PATCH", "/patch"),
+                Arguments.of("POST", "/post")
+        );
     }
 }
