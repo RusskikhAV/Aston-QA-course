@@ -1,6 +1,7 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,16 +11,21 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class RestTest {
-    private final String BASE_URI = "https://postman-echo.com";
+    @BeforeAll
+    public static void beforeAll() {
+        RestAssured.baseURI = "https://postman-echo.com";
+    }
+
     private final String BODY_TEXT = "This is expected to be sent back as part of response body.";
 
     @Test
     @DisplayName("Get-Method Postman-echo")
     public void getMethodTest() {
         given()
-                .baseUri(BASE_URI)
+                .queryParam("foo1", "bar1")
+                .queryParam("foo2", "bar2")
                 .when()
-                .get("/get?foo1=bar1&foo2=bar2")
+                .get("/get")
                 .then().log().body().statusCode(HttpStatus.SC_OK)
                 .assertThat()
                 .body("args.foo1", equalTo("bar1"))
@@ -32,7 +38,6 @@ public class RestTest {
     public void postMethodTestRawText() {
         String text = "{\n    \"test\": \"value\"\n}";
         given()
-                .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(text)
                 .when()
@@ -47,7 +52,6 @@ public class RestTest {
     @DisplayName("Post-Method Form Data Postman-echo")
     public void postMethodTestFromData() {
         given()
-                .baseUri(BASE_URI)
                 .contentType(ContentType.URLENC.withCharset(StandardCharsets.UTF_8))
                 .formParam("foo1", "bar1")
                 .formParam("foo2", "bar2")
@@ -65,7 +69,6 @@ public class RestTest {
     @DisplayName("Put-Method Postman-echo")
     public void putMethodTest() {
         given()
-                .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(BODY_TEXT)
                 .when()
@@ -80,7 +83,6 @@ public class RestTest {
     @DisplayName("Patch-Method Postman-echo")
     public void patchMethodTest() {
         given()
-                .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(BODY_TEXT)
                 .when()
@@ -95,7 +97,6 @@ public class RestTest {
     @DisplayName("Delete-Method Postman-echo")
     public void deleteMethodTest() {
         given()
-                .baseUri(BASE_URI)
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(BODY_TEXT)
                 .when()
