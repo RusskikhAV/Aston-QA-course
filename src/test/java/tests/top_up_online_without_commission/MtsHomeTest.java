@@ -3,13 +3,21 @@ package tests.top_up_online_without_commission;
 import common.Config;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import tests.base.BaseTest;
 
 import java.util.stream.Stream;
 
+/**
+ * Тут представлены тесты главной страницы МТС,
+ * добавил тесты с Лекции_15
+ * попробовал параметризованные тесты, с источником данных из метода
+ * и используя значения аннотации
+ */
 public class MtsHomeTest extends BaseTest {
 
     @BeforeEach
@@ -18,6 +26,36 @@ public class MtsHomeTest extends BaseTest {
                 .open(Config.getURL());
     }
 
+    @Test
+    @DisplayName("Наличие заголовка указанного блока")
+    public void checkNameBlockTest() {
+        mtsHomePage
+                .checkNameBlock();
+    }
+
+    @Test
+    @DisplayName("Наличие ссылки \"Подробнее о сервисе\"")
+    public void checkHrefTest() {
+        mtsHomePage
+                .checkHref();
+    }
+
+    @Test
+    @DisplayName("Проверка работы ссылки \"Подробнее о сервисе\"")
+    public void isWorkedHref() {
+        mtsHomePage
+                .acceptCookie()
+                .isWorkedHref();
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Visa", "Verified By Visa", "MasterCard", "MasterCard Secure Code", "Белкарт"})
+    @DisplayName("Наличие логотипа платёжной системы Verified By Visa")
+    public void checkPaymentPartnerVerifiedByVisaTest(String alt) {
+        mtsHomePage
+                .checkPaymentPartnerVerifiedByVisa(alt);
+    }
 
     @ParameterizedTest
     @MethodSource("parametersForCheckPlaceholderNameTest")

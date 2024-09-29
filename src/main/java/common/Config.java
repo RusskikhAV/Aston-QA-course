@@ -3,6 +3,12 @@ package common;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Эксперементы с проперти =)
+ * <p>
+ * Думаю что телефон, сумма и е-майл тут не уместны
+ * попробовал ради эсперемента
+ */
 public class Config {
     private static final Properties properties;
 
@@ -38,5 +44,17 @@ public class Config {
 
     public static String getURL() {
         return properties.getProperty("url");
+    }
+
+    public static String getTelephoneNumber() {
+        return properties.getProperty("telephone.number");
+    }
+
+    public static String getSum() {
+        return properties.getProperty("sum");
+    }
+
+    public static String getEmail() {
+        return properties.getProperty("email");
     }
 }

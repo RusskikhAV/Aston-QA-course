@@ -1,6 +1,8 @@
 package pages.base;
 
 import common.Config;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,6 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * Базовая страница для всех представлений,
+ * вынес в этот класс основные используемые методы в тестах
+ */
 public class BasePage {
     protected WebDriver driver;
 
@@ -35,8 +41,28 @@ public class BasePage {
         return element.getAttribute("innerHTML");
     }
 
-    public String getAttributeInnerSRC(WebElement element) {
+    public String getAttributeSRC(WebElement element) {
         return element.getAttribute("src");
     }
 
+    public String getElementText(WebElement element) {
+        return element.getText();
+    }
+
+    public String getAttributeHref(WebElement element) {
+        return element.getAttribute("href");
+    }
+
+    public String getAttributePlaceholder(WebElement element) {
+        return element.getAttribute("placeholder");
+    }
+
+    public void click(WebElement element) {
+        try {
+            element.click();
+        } catch (ElementNotInteractableException ex) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            element.click();
+        }
+    }
 }
