@@ -73,7 +73,7 @@ public class RestTest {
     @DisplayName("Delete-Method Postman-echo")
     public void requestMethodTest(String method, String endpoint) {
         String BODY_TEXT = "This is expected to be sent back as part of response body.";
-        
+
         given()
                 .contentType(ContentType.TEXT.withCharset(StandardCharsets.UTF_8))
                 .body(BODY_TEXT)
