@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.base.BasePage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /***
  * В действительности не понял как точно отобразить "Пейджом" данный popUp
  * поэтому вынес его в отдельную директорию от главной страницы
@@ -33,9 +35,9 @@ public class IFramePage extends BasePage {
         String textTelephoneNumber = getAttributeInnerHTMLText(driver.findElement(telephoneNumberDescription));
         String textSumOnBtn = getAttributeInnerHTMLText(driver.findElement(sumButton));
         Assertions.assertAll(
-                () -> Assertions.assertEquals(Config.getSum() + ".00 BYN", textDesc),
-                () -> Assertions.assertEquals("Оплата: Услуги связи\nНомер:375" + Config.getTelephoneNumber(), textTelephoneNumber),
-                () -> Assertions.assertEquals(" Оплатить  " + Config.getSum() + ".00 BYN <!---->", textSumOnBtn)
+                () -> assertEquals(Config.getSum() + ".00 BYN", textDesc),
+                () -> assertEquals("Оплата: Услуги связи\nНомер:375" + Config.getTelephoneNumber(), textTelephoneNumber),
+                () -> assertEquals(" Оплатить  " + Config.getSum() + ".00 BYN <!---->", textSumOnBtn)
         );
 
         return this;
@@ -45,7 +47,7 @@ public class IFramePage extends BasePage {
         String actual = getAttributeInnerHTMLText(driver.findElement(By.xpath(
                 "//input[@formcontrolname='" + fieldName + "']/../label")));
 
-        Assertions.assertEquals(expected, actual, fieldName + "плейсхолдер не соответствует полю");
+        assertEquals(expected, actual, fieldName + "плейсхолдер не соответствует полю");
 
         return this;
     }
@@ -58,14 +60,13 @@ public class IFramePage extends BasePage {
                 "//div[@class='icons-container ng-tns-c46-1']//img[@src='assets/images/payment-icons/card-types/"
                         + paymentSystem + ".svg']")));
 
-        Assertions.assertEquals(expected, actual, paymentSystem + " не отображается");
+        assertEquals(expected, actual, paymentSystem + " не отображается");
 
         return this;
     }
 
     public IFramePage isWorkedService() {
-        Assertions.assertEquals(
-                Config.getSum() + ".00 BYN", getAttributeInnerHTMLText(driver.findElement(sumDescription)));
+        assertEquals(Config.getSum() + ".00 BYN", getAttributeInnerHTMLText(driver.findElement(sumDescription)));
 
         return this;
     }

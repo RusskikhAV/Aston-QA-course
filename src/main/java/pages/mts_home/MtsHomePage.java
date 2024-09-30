@@ -5,9 +5,15 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import pages.base.BasePage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Постарался реализовать паттерн PageObject,
  * с учетов Ваших замечаний
+ *
+ * В видео Лёши Маршала мы не разделяем логику проверок от наших элементов
+ * поэтому пока что оставил так как в его видео
  */
 public class MtsHomePage extends BasePage {
 
@@ -66,7 +72,7 @@ public class MtsHomePage extends BasePage {
         WebElement element = driver.findElement(h2PaymentService);
         String h2 = getElementText(element);
 
-        Assertions.assertEquals("Онлайн пополнение\nбез комиссии", h2);
+        assertEquals("Онлайн пополнение\nбез комиссии", h2);
 
         return this;
     }
@@ -76,7 +82,7 @@ public class MtsHomePage extends BasePage {
         By paymentSystem = By.xpath("//div[@class='pay__wrapper']//img[@alt='" + alt + "']");
         WebElement element = driver.findElement(paymentSystem);
 
-        Assertions.assertTrue(element.isDisplayed());
+        assertTrue(element.isDisplayed());
 
         return this;
     }
@@ -86,7 +92,7 @@ public class MtsHomePage extends BasePage {
         String realReference = getAttributeHref(element);
         String actualReference = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
 
-        Assertions.assertEquals(actualReference, realReference);
+        assertEquals(actualReference, realReference);
 
         return this;
     }
@@ -95,7 +101,7 @@ public class MtsHomePage extends BasePage {
         click(driver.findElement(hrefAboutService));
         String text = getElementText(driver.findElement(h2ElementAfterMovingToHrefPage));
 
-        Assertions.assertEquals("Оплата банковской картой", text);
+        assertEquals("Оплата банковской картой", text);
 
         return this;
     }
@@ -108,9 +114,9 @@ public class MtsHomePage extends BasePage {
             actual[i] = getAttributePlaceholder(driver.findElement(By.xpath("//input[@id='" + xPathFields[i] + "']")));
         }
         Assertions.assertAll("Group by placeholder",
-                () -> Assertions.assertEquals(expected[0], actual[0], "Плейсхолдер " + expected[0] + " неверен"),
-                () -> Assertions.assertEquals(expected[1], actual[1], "Плейсхолдер " + expected[0] + " неверен"),
-                () -> Assertions.assertEquals(expected[2], actual[2], "Плейсхолдер " + expected[0] + " неверен")
+                () -> assertEquals(expected[0], actual[0], "Плейсхолдер " + expected[0] + " неверен"),
+                () -> assertEquals(expected[1], actual[1], "Плейсхолдер " + expected[0] + " неверен"),
+                () -> assertEquals(expected[2], actual[2], "Плейсхолдер " + expected[0] + " неверен")
         );
 
         return this;

@@ -26,7 +26,6 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure.test.version}</version>
-            <scope>test</scope>
         </dependency>
 
 

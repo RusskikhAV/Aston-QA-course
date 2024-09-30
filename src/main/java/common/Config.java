@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Эксперементы с проперти =)
+ * Эксперименты с проперти =)
  * <p>
  * Думаю что телефон, сумма и е-майл тут не уместны
- * попробовал ради эсперемента
+ * попробовал ради эксперимента
  */
 public class Config {
     private static final Properties properties;
@@ -31,7 +31,6 @@ public class Config {
 
     public static Integer getExplicitTimeOut() {
         return Integer.parseInt(properties.getProperty("explicit.timeout"));
-
     }
 
     public static Boolean isClearCookie() {

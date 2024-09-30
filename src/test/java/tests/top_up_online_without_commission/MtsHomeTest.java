@@ -46,12 +46,11 @@ public class MtsHomeTest extends BaseTest {
         mtsHomePage
                 .acceptCookie()
                 .isWorkedHref();
-
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"Visa", "Verified By Visa", "MasterCard", "MasterCard Secure Code", "Белкарт"})
-    @DisplayName("Наличие логотипа платёжной системы Verified By Visa")
+    @DisplayName("Наличие логотипа платёжных систем")
     public void checkPaymentPartnerVerifiedByVisaTest(String alt) {
         mtsHomePage
                 .checkPaymentPartnerVerifiedByVisa(alt);
@@ -59,7 +58,7 @@ public class MtsHomeTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("parametersForCheckPlaceholderNameTest")
-    @DisplayName("Проверка надпесей в незаполненых полях каждого варианта оплаты услуг")
+    @DisplayName("Проверка надписей в незаполненных полях каждого варианта оплаты услуг")
     public void checkPlaceholderNameTest(String[] expected, String[] xPathFields) {
         mtsHomePage
                 .checkPlaceholderName(expected, xPathFields);
