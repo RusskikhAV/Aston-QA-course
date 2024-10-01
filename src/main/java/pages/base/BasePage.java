@@ -72,6 +72,6 @@ public class BasePage {
         } catch (TimeoutException e) {
             System.out.println("Номер телефона/Сумма оплаты не совпадает");
         }
-         return result;
+        return result;
     }
 }

@@ -32,6 +32,7 @@ public class IFramePage extends BasePage {
         String textDesc = getAttributeInnerHTMLText(driver.findElement(sumDescription));
         String textTelephoneNumber = getAttributeInnerHTMLText(driver.findElement(telephoneNumberDescription));
         String textSumOnBtn = getAttributeInnerHTMLText(driver.findElement(sumButton));
+
         assertAll(
                 () -> assertEquals(Config.getSum() + ".00 BYN", textDesc),
                 () -> assertEquals("Оплата: Услуги связи\nНомер:375" + Config.getTelephoneNumber(), textTelephoneNumber),
@@ -41,16 +42,17 @@ public class IFramePage extends BasePage {
         return this;
     }
 
-    public IFramePage checkSumByPayDescriptionCostWithExplicitWait () {
+    public IFramePage checkSumByPayDescriptionCostWithExplicitWait() {
         boolean isTextSumDescPresent = isTextToBePresentInElement(
                 driver.findElement(sumDescription),
-                Config.getSum() + ".00 BYN" );
+                Config.getSum() + ".00 BYN");
         boolean isTextTelephoneNumberPresent = isTextToBePresentInElement(
                 driver.findElement(telephoneNumberDescription),
                 "Оплата: Услуги связи Номер:375" + Config.getTelephoneNumber());
         boolean isTextSumInButtonPresent = isTextToBePresentInElement(
                 driver.findElement(sumButton),
                 "Оплатить " + Config.getSum() + ".00 BYN");
+
         assertAll(
                 () -> assertTrue(isTextSumDescPresent),
                 () -> assertTrue(isTextTelephoneNumberPresent),

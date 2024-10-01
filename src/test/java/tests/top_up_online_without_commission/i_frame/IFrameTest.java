@@ -15,9 +15,9 @@ import java.util.stream.Stream;
  * Предполагаю что
  * {@see checkLogoByPayDescription}
  * так как значений не много, их можно было передать через @ValueSource
- *
+ * <p>
  * логику выполняющую одинаковую работу вынес в @BeforeEach
- * */
+ */
 public class IFrameTest extends BaseTest {
 
     @BeforeEach
@@ -59,12 +59,12 @@ public class IFrameTest extends BaseTest {
      * checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest
      * {@see checkSumByPayDescriptionCostWithInnerText, checkSumByPayDescriptionCostWithExplicitWait}
      * два теста выполняют одну работу двумя разными способами:
-     *
-     *  в checkingSumAndTelephoneNumberByPayDescriptionWithInnerHTMLTest - текст элемента достаём из
-     *  getAttribute("innerHTML"),
-     *
-     *  checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest - проверяем с помощью явных ожиданий
-     *  появления теста у элемента
+     * <p>
+     * в checkingSumAndTelephoneNumberByPayDescriptionWithInnerHTMLTest - текст элемента достаём из
+     * getAttribute("innerHTML"),
+     * <p>
+     * checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest - проверяем с помощью явных ожиданий
+     * появления теста у элемента
      */
     @Test
     @DisplayName("Проверка правильного отображения сумм и номера телефона в описании платежа")
