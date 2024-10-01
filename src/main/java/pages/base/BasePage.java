@@ -1,10 +1,7 @@
 package pages.base;
 
 import common.Config;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -64,5 +61,17 @@ public class BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
             element.click();
         }
+    }
+
+    public boolean isTextToBePresentInElement(WebElement element, String text) {
+        boolean result = false;
+        try {
+            result = new WebDriverWait(driver, Duration.ofSeconds(Config.getExplicitTimeOut()))
+                    .until(ExpectedConditions.textToBePresentInElement(element, text));
+            System.out.println(element.getText() + " " + result);
+        } catch (TimeoutException e) {
+            System.out.println("Номер телефона/Сумма оплаты не совпадает");
+        }
+         return result;
     }
 }

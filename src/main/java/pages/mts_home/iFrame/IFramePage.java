@@ -1,12 +1,11 @@
 package pages.mts_home.iFrame;
 
 import common.Config;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.base.BasePage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /***
  * В действительности не понял как точно отобразить "Пейджом" данный popUp
@@ -29,15 +28,33 @@ public class IFramePage extends BasePage {
     private final By sumButton = By.xpath("//button[@class='colored disabled']");
     private final By telephoneNumberDescription = By.xpath("//div[@class='pay-description__text']/span");
 
-
-    public IFramePage checkSumByPayDescriptionCost() {
+    public IFramePage checkSumByPayDescriptionCostWithInnerText() {
         String textDesc = getAttributeInnerHTMLText(driver.findElement(sumDescription));
         String textTelephoneNumber = getAttributeInnerHTMLText(driver.findElement(telephoneNumberDescription));
         String textSumOnBtn = getAttributeInnerHTMLText(driver.findElement(sumButton));
-        Assertions.assertAll(
+        assertAll(
                 () -> assertEquals(Config.getSum() + ".00 BYN", textDesc),
                 () -> assertEquals("Оплата: Услуги связи\nНомер:375" + Config.getTelephoneNumber(), textTelephoneNumber),
                 () -> assertEquals(" Оплатить  " + Config.getSum() + ".00 BYN <!---->", textSumOnBtn)
+        );
+
+        return this;
+    }
+
+    public IFramePage checkSumByPayDescriptionCostWithExplicitWait () {
+        boolean isTextSumDescPresent = isTextToBePresentInElement(
+                driver.findElement(sumDescription),
+                Config.getSum() + ".00 BYN" );
+        boolean isTextTelephoneNumberPresent = isTextToBePresentInElement(
+                driver.findElement(telephoneNumberDescription),
+                "Оплата: Услуги связи Номер:375" + Config.getTelephoneNumber());
+        boolean isTextSumInButtonPresent = isTextToBePresentInElement(
+                driver.findElement(sumButton),
+                "Оплатить " + Config.getSum() + ".00 BYN");
+        assertAll(
+                () -> assertTrue(isTextSumDescPresent),
+                () -> assertTrue(isTextTelephoneNumberPresent),
+                () -> assertTrue(isTextSumInButtonPresent)
         );
 
         return this;

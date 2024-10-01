@@ -24,10 +24,6 @@ public class BaseTest {
             System.out.println("Куки почистили");
         }
 
-    }
-
-    @AfterEach
-    public void close() {
         if (Config.isHoldBrowser()) {
             driver.quit();
         }

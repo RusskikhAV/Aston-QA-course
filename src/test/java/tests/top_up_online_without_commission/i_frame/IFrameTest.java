@@ -54,11 +54,30 @@ public class IFrameTest extends BaseTest {
                 .checkSrcByIcon(paymentSystem);
     }
 
+    /**
+     * checkingSumAndTelephoneNumberByPayDescriptionWithInnerHTMLTest,
+     * checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest
+     * {@see checkSumByPayDescriptionCostWithInnerText, checkSumByPayDescriptionCostWithExplicitWait}
+     * два теста выполняют одну работу двумя разными способами:
+     *
+     *  в checkingSumAndTelephoneNumberByPayDescriptionWithInnerHTMLTest - текст элемента достаём из
+     *  getAttribute("innerHTML"),
+     *
+     *  checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest - проверяем с помощью явных ожиданий
+     *  появления теста у элемента
+     */
     @Test
-    @DisplayName("Проверка правильного отображения сумм и номера телефона в описанни платежа")
-    public void checkingSumAndTelephoneNumberByPayDescriptionTest() {
+    @DisplayName("Проверка правильного отображения сумм и номера телефона в описании платежа")
+    public void checkingSumAndTelephoneNumberByPayDescriptionWithInnerHTMLTest() {
         iFramePage
-                .checkSumByPayDescriptionCost();
+                .checkSumByPayDescriptionCostWithInnerText();
+    }
+
+    @Test
+    @DisplayName("Проверка правильного отображения сумм и номера телефона в описании платежа")
+    public void checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest() {
+        iFramePage
+                .checkSumByPayDescriptionCostWithExplicitWait();
     }
 
     private static Stream<Arguments> paramsForCheckSumByPayDescriptionTest() {
