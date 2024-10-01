@@ -65,6 +65,9 @@ public class IFrameTest extends BaseTest {
      * <p>
      * checkingSumAndTelephoneNumberByPayDescriptionWithExplicitWaitTest - проверяем с помощью явных ожиданий
      * появления теста у элемента
+     *
+     * (так же можно зарефакторить остальные методы, которые выцепляют текст из innerHTML,
+     * под метод с явными ожиданиями)
      */
     @Test
     @DisplayName("Проверка правильного отображения сумм и номера телефона в описании платежа")
